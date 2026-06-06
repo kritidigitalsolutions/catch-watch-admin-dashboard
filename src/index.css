@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #F97316;
+  --color-brand-orange-light: #FB923C;
+  --color-brand-orange-dark: #EA580C;
+  --color-brand-dark: #0F172A;
+  --color-brand-navy: #1E293B;
+  --color-brand-slate: #334155;
+  --color-brand-surface-2: #283548;
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+  --color-warning: #EAB308;
+  --color-info: #3B82F6;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Standard Spacing relies on Tailwind's default 8px scale */
+}
+
+/* ===== BASE STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* Light mode defaults */
+body {
+  background-color: #F8FAFC;
+  color: #0F172A;
+}
+
+/* Dark mode */
+.dark body,
+body.dark {
+  background-color: #0F172A;
+  color: #F8FAFC;
+}
+
+html.dark {
+  background-color: #0F172A;
+  color-scheme: dark;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-orange {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(249, 115, 22, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(249,115,22,0.08), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-pulse-orange {
+  animation: pulse-orange 2s infinite;
+}
+
+/* ===== GLASS EFFECT ===== */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-dark {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* ===== GRADIENT HELPERS ===== */
+.gradient-orange {
+  background: linear-gradient(135deg, #F97316, #EA580C);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+}
+
+.gradient-card-dark {
+  background: linear-gradient(145deg, #1E293B, #162032);
+}
+
+.gradient-card-light {
+  background: linear-gradient(145deg, #FFFFFF, #F8FAFC);
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: inherit;
+}
+
+/* ===== FOCUS ===== */
+*:focus-visible {
+  outline: 2px solid #F97316;
+  outline-offset: 2px;
+}
+
+/* ===== INPUT STYLES ===== */
+input, textarea, select {
+  font-family: var(--font-sans);
+}
+
+/* Remove browser native search cancel button */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* Override browser autofill yellow background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 40px #1e293b inset !important;
+  -webkit-text-fill-color: #f1f5f9 !important;
+  caret-color: #f1f5f9 !important;
+}
+
+/* Light mode autofill override */
+.light input:-webkit-autofill,
+input[data-theme="light"]:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 40px #ffffff inset !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
+
+/* ===== TABLE ===== */
+.table-row-hover:hover {
+  background-color: rgba(249, 115, 22, 0.05);
+}
+
+.dark .table-row-hover:hover {
+  background-color: rgba(249, 115, 22, 0.08);
+}
+
+/* ===== TOOLTIP ===== */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: #0F172A;
+  color: #F8FAFC;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
